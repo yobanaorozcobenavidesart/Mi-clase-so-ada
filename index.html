@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Clase Soñada</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-color: #0a0a0a;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at 10% 20%, #2b2b2b 0%, #0a0a0a 90%);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: gold;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .group-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .group-btn {
+            background-color: #333;
+            color: white;
+            border: 2px solid gold;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .group-btn:hover {
+            background-color: gold;
+            color: black;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px gold;
+        }
+        
+        .group-btn.active {
+            background-color: gold;
+            color: black;
+            box-shadow: 0 0 15px gold;
+        }
+        
+        .section {
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            display: none;
+            border: 1px solid #333;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: gold;
+            border-bottom: 2px solid gold;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.8em;
+            text-align: center;
+        }
+        
+        .dream-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: gold;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+        
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            color: white;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: gold;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, gold, #ffd700);
+            color: black;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-top: 20px;
+            align-self: center;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px gold;
+        }
+        
+        .dream-result {
+            background-color: #2a2a2a;
+            border: 1px solid gold;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .dream-result h3 {
+            color: gold;
+            margin-top: 0;
+        }
+        
+        .print-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            background-color: #333;
+            color: white;
+            border: 2px solid gold;
+            border-radius: 50px;
+            padding: 12px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .print-btn:hover {
+            background-color: gold;
+            color: black;
+            box-shadow: 0 0 15px gold;
+        }
+        
+        .language-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .lang-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn.active {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        /* Estilos para impresión */
+        @media print {
+            body {
+                background-color: white !important;
+                color: black !important;
+                padding: 20px;
+                font-size: 12pt;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .section {
+                background-color: white !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                color: #333 !important;
+                text-shadow: none !important;
+            }
+            
+            .dream-result {
+                border: 1px solid #ddd !important;
+                background-color: white !important;
+                display: block !important;
+            }
+            
+            .dream-result h3 {
+                color: #333 !important;
+            }
+            
+            .dream-result p {
+                color: black !important;
+            }
+            
+            .dream-result hr {
+                border-color: #ddd !important;
+            }
+            
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #333;
+                padding-bottom: 10px;
+            }
+            
+            .print-header h1 {
+                margin-bottom: 5px;
+            }
+            
+            .print-date {
+                font-style: italic;
+                margin-bottom: 10px;
+            }
+        }
+        
+        .print-header, .print-date {
+            display: none;
+        }
+
+        /* Estilos del footer exactamente como los proporcionaste */
+        footer {
+            background-color: #000;
+            color: #ccc;
+            padding: 30px 20px;
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 1.5;
+            border-top: 2px solid #ff6f00;
+            margin-top: 40px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        footer strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        footer em {
+            color: #ffa726;
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        footer a {
+            color: #F6BE00;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .enlaces-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .enlaces-footer a {
+            white-space: nowrap;
+        }
+
+        .contador-visitas {
+            margin-top: 25px;
+        }
+
+        .contador-visitas img {
+            max-width: 100px;
+            opacity: 0.9;
+        }
+
+        .doi-badge img,
+        .cc-logo img {
+            vertical-align: middle;
+            height: 20px;
+            margin: 0 5px;
+        }
+
+        /* Nuevos estilos para la descripción */
+        .app-description {
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 800px;
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .app-description h3 {
+            color: gold;
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.5em;
+            border-bottom: 1px solid gold;
+            padding-bottom: 10px;
+        }
+
+        .app-description p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .benefits-list {
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+
+        .benefits-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .benefits-list li:before {
+            content: "★";
+            color: gold;
+            position: absolute;
+            left: 0;
+        }
+
+        .summary {
+            font-style: italic;
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-left: 4px solid gold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <!-- Encabezado para impresión -->
+        <div class="print-header">
+            <h1>MI CLASE SOÑADA</h1>
+            <div class="print-date" id="print-date"></div>
+        </div>
+        
+        <div class="language-buttons no-print">
+            <button class="lang-btn active" data-lang="es">Español</button>
+            <button class="lang-btn" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="fr">Français</button>
+        </div>
+        <h1 class="no-print">MI CLASE SOÑADA</h1>
+             
+        <div style="text-align: center; margin-top: -1px; margin-bottom: 30px;">
+            <img src="https://i.postimg.cc/3N2JgFyW/dc4be8ed-697a-403b-a5df-362873e5e4c8.jpg"
+                alt="Imagen decorativa"
+                style="max-width: 150px; border: 3px solid gold; border-radius: 10px; box-shadow: 0 0 15px gold;">
+        </div>
+
+     
+            
+            <div class="lang-es">
+                <p>Es una herramienta educativa diseñada para que los estudiantes aprendan de forma sencilla cómo se planea una clase, convirtiéndose en protagonistas del proceso. A través de un formato claro, visual y en tres idiomas, niños y jóvenes pueden expresar cómo imaginan su clase ideal: qué emociones quieren sentir, qué desean aprender, qué recursos utilizarían y cómo les gustaría que se evaluara su trabajo.</p>
+                
+                <p>Este espacio no solo despierta la creatividad, sino que permite a los docentes escuchar y conocer mejor a sus estudiantes, comprendiendo sus intereses, necesidades y sueños. De esta manera, el profesor puede adaptar su planificación para cumplir, en la medida de lo posible, con esas expectativas, logrando que los alumnos se sientan valorados, escuchados y motivados.</p>
+                
+                <h4>Beneficios principales:</h4>
+                <ul class="benefits-list">
+                    <li>Enseña a los estudiantes, paso a paso y de forma sencilla, cómo se organiza una clase.</li>
+                    <li>Favorece la participación activa y el sentido de pertenencia en el aula.</li>
+                    <li>Facilita que los docentes diseñen clases más cercanas, personalizadas y motivadoras.</li>
+                    <li>Refuerza el vínculo docente-estudiante, fomentando la comunicación y la empatía.</li>
+                    <li>Brinda una experiencia lúdica y formativa al mismo tiempo.</li>
+                </ul>
+                
+                <div class="summary">
+                    <p>En resumen, Mi Clase Soñada no es solo una herramienta para planear, sino un puente entre los sueños de los estudiantes y la creatividad de los docentes, construyendo juntos experiencias educativas significativas.</p>
+                </div>
+            </div>
+            
+            <div class="lang-en" style="display:none">
+                <p>An educational application designed to teach students in a simple way how a class is planned, making them protagonists of the process. Through a clear, visual format in three languages, children and young people can express how they imagine their ideal class: what emotions they want to feel, what they want to learn, what resources they would use, and how they would like their work to be evaluated.</p>
+                
+                <p>This space not only sparks creativity but also allows teachers to listen to and get to know their students better, understanding their interests, needs, and dreams. In this way, the teacher can adapt their planning to meet, as much as possible, these expectations, making students feel valued, heard, and motivated.</p>
+                
+                <h4>Main benefits:</h4>
+                <ul class="benefits-list">
+                    <li>Teaches students, step by step and in a simple way, how a class is organized.</li>
+                    <li>Promotes active participation and a sense of belonging in the classroom.</li>
+                    <li>Helps teachers design more engaging, personalized, and motivating classes.</li>
+                    <li>Strengthens the teacher-student bond, fostering communication and empathy.</li>
+                    <li>Provides a playful and educational experience at the same time.</li>
+                </ul>
+                
+                <div class="summary">
+                    <p>In summary, My Dream Class is not just a planning tool, but a bridge between students' dreams and teachers' creativity, building meaningful educational experiences together.</p>
+                </div>
+            </div>
+            
+            <div class="lang-fr" style="display:none">
+                <p>Une application éducative conçue pour que les étudiants apprennent de manière simple comment une classe est planifiée, devenant ainsi les protagonistes du processus. Grâce à un format clair, visuel et en trois langues, les enfants et les jeunes peuvent exprimer comment ils imaginent leur classe idéale : quelles émotions ils veulent ressentir, ce qu'ils veulent apprendre, quelles ressources ils utiliseraient et comment ils aimeraient que leur travail soit évalué.</p>
+                
+                <p>Cet espace ne stimule pas seulement la créativité, mais permet également aux enseignants d'écouter et de mieux connaître leurs élèves, en comprenant leurs intérêts, leurs besoins et leurs rêves. De cette manière, l'enseignant peut adapter sa planification pour répondre, dans la mesure du possible, à ces attentes, en faisant en sorte que les élèves se sentent valorisés, écoutés et motivés.</p>
+                
+                <h4>Principaux avantages :</h4>
+                <ul class="benefits-list">
+                    <li>Enseigne aux étudiants, étape par étape et de manière simple, comment une classe est organisée.</li>
+                    <li>Favorise la participation active et le sentiment d'appartenance en classe.</li>
+                    <li>Facilite la conception de cours plus proches, personnalisés et motivants pour les enseignants.</li>
+                    <li>Renforce le lien enseignant-élève, favorisant la communication et l'empathie.</li>
+                    <li>Offre une expérience ludique et formatrice à la fois.</li>
+                </ul>
+                
+                <div class="summary">
+                    <p>En résumé, Ma Classe de Rêve n'est pas seulement un outil de planification, mais un pont entre les rêves des élèves et la créativité des enseignants, construisant ensemble des expériences éducatives significatives.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="group-buttons no-print">
+            <button class="group-btn active" data-group="niños">Para Niños</button>
+            <button class="group-btn" data-group="jovenes">Para Jóvenes</button>
+            <button class="group-btn" data-group="docentes">Para Docentes</button>
+        </div>
+        
+        <!-- Sección Niños -->
+        <div class="section active" id="niños">
+            <h2 class="lang-es">¡Crea tu Clase Soñada!</h2>
+            <h2 class="lang-en" style="display:none">Create Your Dream Class!</h2>
+            <h2 class="lang-fr" style="display:none">Créez Votre Classe de Rêve !</h2>
+            
+            <form class="dream-form" id="dream-form-ninos">
+                <div class="form-group">
+                    <label for="titulo-nino" class="lang-es">Título de tu clase soñada:</label>
+                    <label for="titulo-nino" class="lang-en" style="display:none">Title of your dream class:</label>
+                    <label for="titulo-nino" class="lang-fr" style="display:none">Titre de votre classe de rêve :</label>
+                    <input type="text" id="titulo-nino" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emocion-nino" class="lang-es">Emoción que quieres sentir:</label>
+                    <label for="emocion-nino" class="lang-en" style="display:none">Emotion you want to feel:</label>
+                    <label for="emocion-nino" class="lang-fr" style="display:none">Émotion que vous voulez ressentir :</label>
+                    <input type="text" id="emocion-nino" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objetivo-emocional-nino" class="lang-es">Objetivo emocional (¿Cómo te gustaría sentirte?):</label>
+                    <label for="objetivo-emocional-nino" class="lang-en" style="display:none">Emotional goal (How would you like to feel?):</label>
+                    <label for="objetivo-emocional-nino" class="lang-fr" style="display:none">Objectif émotionnel (Comment aimeriez-vous vous sentir ?) :</label>
+                    <textarea id="objetivo-emocional-nino" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objetivo-academico-nino" class="lang-es">Objetivo académico (¿Qué quieres aprender?):</label>
+                    <label for="objetivo-academico-nino" class="lang-en" style="display:none">Academic goal (What do you want to learn?):</label>
+                    <label for="objetivo-academico-nino" class="lang-fr" style="display:none">Objectif académique (Que voulez-vous apprendre ?) :</label>
+                    <textarea id="objetivo-academico-nino" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recursos-nino" class="lang-es">Recursos (¿Qué materiales te gustaría usar?):</label>
+                    <label for="recursos-nino" class="lang-en" style="display:none">Resources (What materials would you like to use?):</label>
+                    <label for="recursos-nino" class="lang-fr" style="display:none">Ressources (Quels matériaux aimeriez-vous utiliser ?) :</label>
+                    <textarea id="recursos-nino" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="secuencia-nino" class="lang-es">Secuencia (¿Cómo sería un día en tu clase?):</label>
+                    <label for="secuencia-nino" class="lang-en" style="display:none">Sequence (What would a day in your class be like?):</label>
+                    <label for="secuencia-nino" class="lang-fr" style="display:none">Séquence (Comment serait une journée dans votre classe ?) :</label>
+                    <textarea id="secuencia-nino" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evaluacion-nino" class="lang-es">Evaluación (¿Cómo sabrías que aprendiste?):</label>
+                    <label for="evaluacion-nino" class="lang-en" style="display:none">Evaluation (How would you know you learned?):</label>
+                    <label for="evaluacion-nino" class="lang-fr" style="display:none">Évaluation (Comment sauriez-vous que vous avez appris ?) :</label>
+                    <textarea id="evaluacion-nino" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn lang-es no-print">¡Guardar mi Clase Soñada!</button>
+                <button type="submit" class="submit-btn lang-en no-print" style="display:none">Save My Dream Class!</button>
+                <button type="submit" class="submit-btn lang-fr no-print" style="display:none">Enregistrer Ma Classe de Rêve !</button>
+            </form>
+            
+            <div class="dream-result" id="dream-result-ninos">
+                <h3 class="lang-es">✨ Tu Clase Soñada ✨</h3>
+                <h3 class="lang-en" style="display:none">✨ Your Dream Class ✨</h3>
+                <h3 class="lang-fr" style="display:none">✨ Votre Classe de Rêve ✨</h3>
+                <div id="result-content-ninos"></div>
+            </div>
+        </div>
+        
+        <!-- Sección Jóvenes -->
+        <div class="section" id="jovenes">
+            <h2 class="lang-es">¡Diseña tu Clase Soñada!</h2>
+            <h2 class="lang-en" style="display:none">Design Your Dream Class!</h2>
+            <h2 class="lang-fr" style="display:none">Concevez Votre Classe de Rêve !</h2>
+            
+            <form class="dream-form" id="dream-form-jovenes">
+                <div class="form-group">
+                    <label for="titulo-joven" class="lang-es">Título de tu clase ideal:</label>
+                    <label for="titulo-joven" class="lang-en" style="display:none">Title of your ideal class:</label>
+                    <label for="titulo-joven" class="lang-fr" style="display:none">Titre de votre classe idéale :</label>
+                    <input type="text" id="titulo-joven" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emocion-joven" class="lang-es">Emoción principal a trabajar:</label>
+                    <label for="emocion-joven" class="lang-en" style="display:none">Main emotion to work on:</label>
+                    <label for="emocion-joven" class="lang-fr" style="display:none">Émotion principale à travailler :</label>
+                    <input type="text" id="emocion-joven" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objetivo-emocional-joven" class="lang-es">Objetivo emocional (¿Qué ambiente quieres?):</label>
+                    <label for="objetivo-emocional-joven" class="lang-en" style="display:none">Emotional goal (What atmosphere do you want?):</label>
+                    <label for="objetivo-emocional-joven" class="lang-fr" style="display:none">Objectif émotionnel (Quelle atmosphère voulez-vous ?) :</label>
+                    <textarea id="objetivo-emocional-joven" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objetivo-academico-joven" class="lang-es">Objetivo académico (¿Qué habilidades desarrollarás?):</label>
+                    <label for="objetivo-academico-joven" class="lang-en" style="display:none">Academic goal (What skills will you develop?):</label>
+                    <label for="objetivo-academico-joven" class="lang-fr" style="display:none">Objectif académique (Quelles compétences développerez-vous ?) :</label>
+                    <textarea id="objetivo-academico-joven" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recursos-joven" class="lang-es">Recursos (Tecnología, materiales, etc.):</label>
+                    <label for="recursos-joven" class="lang-en" style="display:none">Resources (Technology, materials, etc.):</label>
+                    <label for="recursos-joven" class="lang-fr" style="display:none">Ressources (Technologie, matériaux, etc.) :</label>
+                    <textarea id="recursos-joven" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="secuencia-joven" class="lang-es">Secuencia (¿Cómo sería una sesión?):</label>
+                    <label for="secuencia-joven" class="lang-en" style="display:none">Sequence (What would a session be like?):</label>
+                    <label for="secuencia-joven" class="lang-fr" style="display:none">Séquence (Comment serait une session ?) :</label>
+                    <textarea id="secuencia-joven" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evaluacion-joven" class="lang-es">Evaluación (¿Cómo demostrarías tu aprendizaje?):</label>
+                    <label for="evaluacion-joven" class="lang-en" style="display:none">Evaluation (How would you demonstrate your learning?):</label>
+                    <label for="evaluacion-joven" class="lang-fr" style="display:none">Évaluation (Comment démontreriez-vous votre apprentissage ?) :</label>
+                    <textarea id="evaluacion-joven" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn lang-es no-print">¡Guardar mi Clase Soñada!</button>
+                <button type="submit" class="submit-btn lang-en no-print" style="display:none">Save My Dream Class!</button>
+                <button type="submit" class="submit-btn lang-fr no-print" style="display:none">Enregistrer Ma Classe de Rêve !</button>
+            </form>
+            
+            <div class="dream-result" id="dream-result-jovenes">
+                <h3 class="lang-es">✨ Tu Clase Soñada ✨</h3>
+                <h3 class="lang-en" style="display:none">✨ Your Dream Class ✨</h3>
+                <h3 class="lang-fr" style="display:none">✨ Votre Classe de Rêve ✨</h3>
+                <div id="result-content-jovenes"></div>
+            </div>
+        </div>
+        
+        <!-- Sección Docentes -->
+        <div class="section" id="docentes">
+            <h2 class="lang-es">¡Planea tu Clase Soñada!</h2>
+            <h2 class="lang-en" style="display:none">Plan Your Dream Class!</h2>
+            <h2 class="lang-fr" style="display:none">Planifiez Votre Classe de Rêve !</h2>
+            
+            <form class="dream-form" id="dream-form-docentes">
+                <div class="form-group">
+                    <label for="titulo-docente" class="lang-es">Título de tu propuesta:</label>
+                    <label for="titulo-docente" class="lang-en" style="display:none">Title of your proposal:</label>
+                    <label for="titulo-docente" class="lang-fr" style="display:none">Titre de votre proposition :</label>
+                    <input type="text" id="titulo-docente" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emocion-docente" class="lang-es">Emoción clave para tus estudiantes:</label>
+                    <label for="emocion-docente" class="lang-en" style="display:none">Key emotion for your students:</label>
+                    <label for="emocion-docente" class="lang-fr" style="display:none">Émotion clé pour vos élèves :</label>
+                    <input type="text" id="emocion-docente" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objetivo-emocional-docente" class="lang-es">Objetivo emocional (¿Qué clima emocional buscas?):</label>
+                    <label for="objetivo-emocional-docente" class="lang-en" style="display:none">Emotional goal (What emotional climate are you aiming for?):</label>
+                    <label for="objetivo-emocional-docente" class="lang-fr" style="display:none">Objectif émotionnel (Quel climat émotionnel visez-vous ?) :</label>
+                    <textarea id="objetivo-emocional-docente" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="objetivo-academico-docente" class="lang-es">Objetivo académico (¿Qué competencias desarrollarás?):</label>
+                    <label for="objetivo-academico-docente" class="lang-en" style="display:none">Academic goal (What competencies will you develop?):</label>
+                    <label for="objetivo-academico-docente" class="lang-fr" style="display:none">Objectif académique (Quelles compétences développerez-vous ?) :</label>
+                    <textarea id="objetivo-academico-docente" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recursos-docente" class="lang-es">Recursos (Materiales, tecnología, estrategias):</label>
+                    <label for="recursos-docente" class="lang-en" style="display:none">Resources (Materials, technology, strategies):</label>
+                    <label for="recursos-docente" class="lang-fr" style="display:none">Ressources (Matériaux, technologie, stratégies) :</label>
+                    <textarea id="recursos-docente" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="secuencia-docente" class="lang-es">Secuencia didáctica (Plan de clase):</label>
+                    <label for="secuencia-docente" class="lang-en" style="display:none">Didactic sequence (Lesson plan):</label>
+                    <label for="secuencia-docente" class="lang-fr" style="display:none">Séquence didactique (Plan de cours) :</label>
+                    <textarea id="secuencia-docente" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evaluacion-docente" class="lang-es">Evaluación (¿Cómo medirás el aprendizaje?):</label>
+                    <label for="evaluacion-docente" class="lang-en" style="display:none">Evaluation (How will you measure learning?):</label>
+                    <label for="evaluacion-docente" class="lang-fr" style="display:none">Évaluation (Comment mesurerez-vous l'apprentissage ?) :</label>
+                    <textarea id="evaluacion-docente" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn lang-es no-print">¡Guardar mi Clase Soñada!</button>
+                <button type="submit" class="submit-btn lang-en no-print" style="display:none">Save My Dream Class!</button>
+                <button type="submit" class="submit-btn lang-fr no-print" style="display:none">Enregistrer Ma Classe de Rêve !</button>
+            </form>
+            
+            <div class="dream-result" id="dream-result-docentes">
+                <h3 class="lang-es">✨ Tu Clase Soñada ✨</h3>
+                <h3 class="lang-en" style="display:none">✨ Your Dream Class ✨</h3>
+                <h3 class="lang-fr" style="display:none">✨ Votre Classe de Rêve ✨</h3>
+                <div id="result-content-docentes"></div>
+            </div>
+        </div>
+        
+        <button class="print-btn no-print" onclick="preparePrint()">
+            <span class="lang-es">Imprimir Mi Clase Soñada</span>
+            <span class="lang-en" style="display:none">Print My Dream Class</span>
+            <span class="lang-fr" style="display:none">Imprimer Ma Classe de Rêve</span>
+        </button>
+    </div>
+
+    <footer class="no-print">
+        © 2024 — Herramientas del Proyecto de Investigación: <strong>*Emociones en el Aula*</strong><br>
+        Propuesta educativa y cultural creada por <strong>Yobana Orozco Benavides</strong>, Escritora | Docente | Gestora de proyectos artísticos y pedagógicos<br><br>
+        
+        Licencia: 
+        <em>Creative Commons Atribución-NoComercial 4.0 Internacional (CC BY-NC 4.0)</em>
+        <span class="cc-logo">
+            <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">
+                <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="CC Logo">
+            </a>
+        </span>
+        <br>
+        Uso libre con fines educativos — <strong>prohibido uso comercial</strong><br><br>
+
+        Más información de la autora: 
+        <a href="https://yobanaorozcoartista.bio.link/" target="_blank" rel="noopener">yobanaorozcoartista.bio.link</a>
+
+        <div class="enlaces-footer">
+            <a href="https://orcid.org/0009-0002-9253-6429" target="_blank">ORCID</a>
+            <a href="https://www.webofscience.com/wos/?mode=Nextgen&path=%2Fwos%2Fauthor%2Frecord%2FLLM-9647-2024&IsProductCode=Yes&Init=Yes&DestApp=UA&Func=Frame&action=transfer&SrcApp=CR&SID=USW2EC0AFFb0eJYIUmqxKCgZWIVbn" target="_blank">Web of Science</a>
+            <a href="https://account.ncbi.nlm.nih.gov/?back_url=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fmyncbi%2F" target="_blank">NCBI</a>
+            <a href="https://es.slideshare.net/YOBANAOROZCO" target="_blank">SlideShare</a>
+            <a href="https://hq.ssrn.com/login/authentication.cfm?rectype=edit&perinf=y&partid=7786766" target="_blank">SSRN</a>
+            <a href="https://www.researchgate.net/" target="_blank">ResearchGate</a>
+            <a href="https://siise.bibliotecanacional.gov.co/siise/Login?ReturnUrl=%2fsiise%2fSeleccionAdquisiciones%2fSolicitudISSN%2fIndex" target="_blank">SIISE</a>
+            <a href="https://scientificrc.org/index.php/src/login?source=%2Findex.php%2Fsrc%2Fsubmission%2Fwizard" target="_blank">Scientific RC</a>
+            <a href="https://www.openaire.eu/annual-reports" target="_blank">OpenAIRE</a>
+            <a href="https://zenodo.org/" target="_blank">Zenodo</a>
+            <a href="https://sso.anii.org.uy/oxauth/login.htm" target="_blank">ANII</a>
+            <a href="https://rizoma.conahcyt.mx/acerca-de-mi/mi-perfil" target="_blank">Rizoma CONAHCYT</a>
+            <a href="https://papersubmission.scirp.org/paper/showAddPaper" target="_blank">SCIRP Submission</a>
+            <a href="https://utolima.academia.edu/YOBANAOROZCOBENAVIDES" target="_blank">Academia.edu</a>
+            <a href="https://www.studocu.com/co/user/yobana-orozco-benavides/15382735?origin=user-menu" target="_blank">Studocu</a>
+            <a href="https://www.calameo.com/accounts/7997056" target="_blank">Calameo</a>
+            <a href="https://www.amazon.com.mx/stores/YOBANA-OROZCO-BENAVIDES/author/B0CZG5RS1T?ref=ap_rdr&isDramIntegrated=true&shoppingPortalEnabled=true" target="_blank">Amazon</a>
+        </div>
+    </footer>
+
+    <script>
+        // Crear estrellas de fondo
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 100;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.opacity = Math.random();
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                star.style.animationDuration = `${1 + Math.random() * 3}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Cambiar entre secciones
+        const groupButtons = document.querySelectorAll('.group-btn');
+        const sections = document.querySelectorAll('.section');
+        
+        groupButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                groupButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+                
+                button.classList.add('active');
+                const group = button.getAttribute('data-group');
+                document.getElementById(group).classList.add('active');
+            });
+        });
+        
+        // Cambiar idiomas
+        const langButtons = document.querySelectorAll('.lang-btn');
+        
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                langButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                document.querySelectorAll('.lang-es, .lang-en, .lang-fr').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                const lang = button.getAttribute('data-lang');
+                document.querySelectorAll(`.lang-${lang}`).forEach(el => {
+                    el.style.display = 'block';
+                });
+            });
+        });
+        
+        // Manejar formularios
+        document.getElementById('dream-form-ninos').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showDreamResult('ninos');
+        });
+        
+        document.getElementById('dream-form-jovenes').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showDreamResult('jovenes');
+        });
+        
+        document.getElementById('dream-form-docentes').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showDreamResult('docentes');
+        });
+        
+        function showDreamResult(group) {
+            const resultContainer = document.getElementById(`result-content-${group}`);
+            const inputs = document.querySelectorAll(`#dream-form-${group} input, #dream-form-${group} textarea`);
+            
+            let resultHTML = '';
+            
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    const label = document.querySelector(`label[for="${input.id}"]`).textContent;
+                    resultHTML += `
+                        <p><strong>${label}</strong><br>${input.value}</p>
+                        <hr style="border-color: #444; margin: 10px 0;">
+                    `;
+                }
+            });
+            
+            resultContainer.innerHTML = resultHTML;
+            document.getElementById(`dream-result-${group}`).style.display = 'block';
+            
+            // Desplazarse al resultado
+            document.getElementById(`dream-result-${group}`).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Preparar para imprimir
+        function preparePrint() {
+            const today = new Date();
+            const dateStr = today.toLocaleDateString();
+            
+            // Actualizar la fecha en el encabezado de impresión
+            document.getElementById('print-date').textContent = `Fecha: ${dateStr}`;
+            
+            // Mostrar todos los resultados antes de imprimir
+            document.querySelectorAll('.dream-result').forEach(result => {
+                if (result.querySelector('p')) { // Si tiene contenido
+                    result.style.display = 'block';
+                }
+            });
+            
+            // Esperar un momento para que se actualice el DOM antes de imprimir
+            setTimeout(() => {
+                window.print();
+            }, 100);
+        }
+        
+        // Inicializar estrellas
+        createStars();
+    </script>
+</body>
+</html>
